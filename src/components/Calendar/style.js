@@ -4,4 +4,6 @@ export const CalendarWrapper = styled.div`
   justify-content: center;
   margin-top: 20px;
   font-size: 20px;
+
+  
 `;

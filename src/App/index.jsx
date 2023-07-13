@@ -11,13 +11,14 @@ export function App() {
       </header>
       
       <main>
-        <ToDoList />
-        <MyCalendar />
+        <ToDoList/>
+        <MyCalendar/>
       </main>
 
       <footer>
         <p>MyFooter</p>
       </footer>
+
     </AppWrapper>
   );
 };

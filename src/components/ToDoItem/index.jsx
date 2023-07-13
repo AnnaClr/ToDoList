@@ -26,15 +26,15 @@ const TodoItem = ({ todo, onDelete, onEdit, onToggleComplete }) => {
       {isEditing ? (
         <>
           <input type="text" value={editedText} onChange={(e) => setEditedText(e.target.value)} />
-          <button onClick={handleSaveEdit}>Save</button>
-          <button onClick={handleCancelEdit}>Cancel</button>
+          <button onClick={handleSaveEdit}>Salvar</button>
+          <button onClick={handleCancelEdit}>Cancelar</button>
         </>
       ) : (
         <>
           <input type="checkbox" checked={todo.completed} onChange={() => onToggleComplete(todo.id)} />
           <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.text}</span>
-          <button onClick={handleEdit}>Edit</button>
-          <button onClick={() => onDelete(todo.id)}>Delete</button>
+          <button onClick={handleEdit}>Editar</button>
+          <button onClick={() => onDelete(todo.id)}>Deletar</button>
         </>
       )}
     </TodoItemWrapper>

@@ -1,0 +1,27 @@
+export const theme = {
+    colors: {
+        main1: '#024040',
+        main2: '#23D9D9',
+        main3: '#088B8B',
+        complementary1: '#FAFFA5',
+        complementary2: '#6B6B6B',
+        background: '#202020',
+        font: '#000',
+        neutral0: '#000',
+        neutral1: '#111',
+        neutral2: '#222',
+        neutral3: '#333',
+        neutral4: '#444',
+        neutral5: '#555',
+        neutral6: '#666',
+        neutral7: '#777',
+        neutral8: '#888',
+        neutral9: '#999',
+        neutralA: '#AAA',
+        neutralB: '#BBB',
+        neutralC: '#CCC',
+        neutralD: '#DDD',
+        neutralE: '#EEE',
+        neutralF: '#FFF',
+    }
+}

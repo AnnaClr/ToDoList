@@ -11,7 +11,7 @@ export function MyCalendar() {
         return (
           <div>
             <h1>Meu Calendário</h1>
-            <Calendar onChange={handleDateChange} value={selectedDate} />
+            <Calendar onChange={handleDateChange} value={selectedDate}/>
           </div>
         );
 };

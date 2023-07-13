@@ -6,8 +6,14 @@ export const AppWrapper = styled.div`
 
    header {
     width: 100%;
-    height: 15vh;
+    height: 10.0rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
     background: #5AA1FF;
+    border-bottom: #003EB3 .4rem solid;
+
    }
 
    h1 {
@@ -17,26 +23,30 @@ export const AppWrapper = styled.div`
     background-color: transparent;
     padding-top: 3.0rem;
     padding-left: 1.0rem;
+    
    }
 
    main {
     width: 100%;
-    height: 75vh;
+    height: 100vh;
     background: #FFFFFF;
-}
+
+    margin: 0 auto;
+    padding: 2.4rem 0 7.6rem;
+    text-align: justify;
+   }
 
    footer {
-    width: 100%;
-    height: 15vh;
     background: #5AA1FF;
-   }
-
-   p {
-    color: #FFFFFF;
+    color: white;
+    font-size: 2.0rem;
     text-align: center;
-    font-size: 2.5rem;
-    padding-top: 2.5rem;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.6rem;
+
    }
-
-
 `;

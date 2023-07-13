@@ -45,8 +45,8 @@ const TodoList = () => {
 
   return (
     <TodoListWrapper>
-      <input type="text" value={newTodo} onChange={handleInputChange} />
-      <button onClick={handleAddTodo}>Add</button>
+      <input className='textBox' type="text" value={newTodo} onChange={handleInputChange}/>
+      <button className='addButton' onClick={handleAddTodo}>Adicionar</button>
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
