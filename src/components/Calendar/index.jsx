@@ -1,19 +1,19 @@
-import Calendar from 'react-calendar';
+import React from 'react';
+import { CalendarWrapper } from './style';
+import { Calendar as ReactCalendar } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import React, { useState } from 'react';
 
-export function MyCalendar() {
-        const [selectedDate, setSelectedDate] = useState(new Date());
-        const handleDateChange = (date) => {
-          setSelectedDate(date);
-        };
-      
-        return (
-          <div>
-            <h1>Meu Calendário</h1>
-            <Calendar onChange={handleDateChange} value={selectedDate}/>
-          </div>
-        );
+const Calendar = ({ selectedDate, onDateChange }) => {
+  return (
+    <CalendarWrapper>
+      <ReactCalendar onChange={onDateChange} value={selectedDate} />
+    </CalendarWrapper>
+  );
 };
+
+export default Calendar;
+
+
+
 
 

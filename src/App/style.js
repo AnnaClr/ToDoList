@@ -23,6 +23,7 @@ export const AppWrapper = styled.div`
     background-color: transparent;
     padding-top: 3.0rem;
     padding-left: 1.0rem;
+    font-family: Helvetica, sans-serif;
     
    }
 

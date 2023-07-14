@@ -5,5 +5,5 @@ export const CalendarWrapper = styled.div`
   margin-top: 20px;
   font-size: 20px;
 
-  
 `;
+

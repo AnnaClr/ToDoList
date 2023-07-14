@@ -11,11 +11,15 @@ export const TodoListWrapper = styled.div`
     width: 12rem;
     height: 6rem;
     margin-top: 1.6rem;
+
+    border: 2px solid #FAA019;
+    cursor: pointer;
   }
 
   .textBox {
     width: 24rem;
     height: 6rem;
     margin-top: 1.6rem;
+    border: 2px solid #FAA019;
   }
 `;

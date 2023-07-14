@@ -1,6 +1,6 @@
 import React from 'react';
 import ToDoList from '../components/ToDoList';
-import { MyCalendar } from '../components/Calendar';
+import Calendar from '../components/Calendar';
 import { AppWrapper } from './style.js'
 
 export function App() {
@@ -12,13 +12,13 @@ export function App() {
       
       <main>
         <ToDoList/>
-        <MyCalendar/>
+        <Calendar/>
       </main>
 
       <footer>
         <p>MyFooter</p>
       </footer>
-
     </AppWrapper>
   );
 };
+
