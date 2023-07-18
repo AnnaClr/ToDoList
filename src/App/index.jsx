@@ -1,6 +1,5 @@
 import React from 'react';
 import ToDoList from '../components/ToDoList';
-import Calendar from '../components/Calendar';
 import { AppWrapper } from './style.js'
 
 export function App() {
@@ -12,13 +11,14 @@ export function App() {
       
       <main>
         <ToDoList/>
-        <Calendar/>
       </main>
 
       <footer>
-        <p>MyFooter</p>
+        {/* <p>MyFooter</p> */}
       </footer>
     </AppWrapper>
   );
 };
+
+
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { TodoItemWrapper } from './style';
+import { FaCheck } from 'react-icons/fa'
+import { FiX } from 'react-icons/fi'
 
 const TodoItem = ({ item, onEdit, onDelete, onToggleComplete }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -25,16 +27,14 @@ const TodoItem = ({ item, onEdit, onDelete, onToggleComplete }) => {
     <TodoItemWrapper>
       {isEditing ? (
         <>
-          <input type="text" value={editedText} onChange={(e) => setEditedText(e.target.value)} />
-          <button onClick={handleSaveEdit}>Save</button>
-          <button onClick={handleCancelEdit}>Cancel</button>
+          <input type="text" className='inputText' value={editedText} onChange={(e) => setEditedText(e.target.value)} />
+          <button className='saveButton' onClick={handleSaveEdit}><FaCheck/></button>
+          <button className='cancelButton' onClick={handleCancelEdit}><FiX/></button>
         </>
       ) : (
         <>
           <input type="checkbox" checked={item.completed} onChange={onToggleComplete} />
           <span style={{ textDecoration: item.completed ? 'line-through' : 'none' }}>{item.text}</span>
-          <button onClick={handleEdit}>Edit</button>
-          <button onClick={onDelete}>Delete</button>
         </>
       )}
     </TodoItemWrapper>

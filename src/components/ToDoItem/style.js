@@ -11,5 +11,6 @@ export const TodoItemWrapper = styled.div`
   button {
     margin-left: 10px;
   }
+
 `;
 

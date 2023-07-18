@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { TodoListWrapper } from './style';
 import TodoItem from '../ToDoItem/index';
+import { BiEdit } from 'react-icons/bi'
+import { MdOutlineDeleteOutline } from 'react-icons/md'
+import { FiPlus } from 'react-icons/fi'
 
-
-const TodoList = () => {
+const ToDoList = () => {
   const [lists, setLists] = useState([]);
   const [newListName, setNewListName] = useState('');
   const [newItemText, setNewItemText] = useState('');
 
   useEffect(() => {
-    const storedLists = JSON.parse(localStorage.getItem('todoLists'));
+    const storedLists = JSON.parse(localStorage.getItem('ToDoLists'));
     if (storedLists) {
       setLists(storedLists);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('todoLists', JSON.stringify(lists));
+    localStorage.setItem('ToDoLists', JSON.stringify(lists));
   }, [lists]);
 
   const handleNewListNameChange = (e) => {
@@ -45,10 +47,11 @@ const TodoList = () => {
     setLists(updatedLists);
   };
 
-  const handleEditList = (id, newName) => {
+  const handleEditList = (id) => {
+    console.log(id)
     const updatedLists = lists.map((list) => {
       if (list.id === id) {
-        return { ...list, name: newName };
+        return { ...list };
       }
       return list;
     });
@@ -118,27 +121,23 @@ const TodoList = () => {
 
   return (
     <TodoListWrapper>
-      <h1>To-Do List</h1>
-
-      {/* Add Box para adicionar nova lista */}
       <div>
-        <input type="text" value={newListName} onChange={handleNewListNameChange} placeholder="Enter list name" />
-        <button onClick={handleAddList}>Add List</button>
+        <input className='newList' type="text" value={newListName} onChange={handleNewListNameChange} placeholder="Criar nova Lista" />
+        <button className='newListButton' onClick={handleAddList}><FiPlus/></button>
       </div>
 
-      {/* Renderizar as listas existentes */}
       {lists.map((list) => (
-        <div key={list.id}>
-          <h2>{list.name}</h2>
-          <div>Date: {list.date}</div>
-
-          {/* Add Box para adicionar novo item à lista */}
-          <div>
-            <input type="text" value={newItemText} onChange={handleNewItemTextChange} placeholder="Enter item" />
-            <button onClick={() => handleAddItem(list.id)}>Add Item</button>
+        <div key={list.id} className='listBox'>
+          <div className='listNameCreate'>
+            <h2>{list.name}</h2>
+            <div>Criada em: {list.date}</div>
+            <div>
+              <input className='addItem' type="text" value={newItemText} onChange={handleNewItemTextChange} placeholder="Adicionar item"/>
+              <button className='addItemButton' onClick={() => handleAddItem(list.id)}><FiPlus/></button>
+            </div>
           </div>
+         
 
-          {/* Renderizar os itens da lista */}
           {list.items.map((item) => (
             <TodoItem
               key={item.id}
@@ -149,12 +148,13 @@ const TodoList = () => {
             />
           ))}
 
-          <button onClick={() => handleDeleteList(list.id)}>Delete List</button>
-          <button onClick={(newName) => handleEditList(list.id, newName)}>Edit List Name</button>
+          <button className='deleteButton' onClick={() => handleDeleteList(list.id)}><MdOutlineDeleteOutline/></button>
+          <button className='editButton' onClick={() => handleEditList(list.id)}><BiEdit/></button>
         </div>
       ))}
     </TodoListWrapper>
   );
 };
 
-export default TodoList;
+export default ToDoList;
+

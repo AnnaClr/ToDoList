@@ -3,6 +3,7 @@ export const AppWrapper = styled.div`
    width: 100%;
    height: 100vh;
    overflow: auto;
+   background: linear-gradient(180deg, #4F97A5, #57A6B6);
 
    header {
     width: 100%;
@@ -10,10 +11,6 @@ export const AppWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
-    background: #5AA1FF;
-    border-bottom: #003EB3 .4rem solid;
-
    }
 
    h1 {
@@ -24,13 +21,11 @@ export const AppWrapper = styled.div`
     padding-top: 3.0rem;
     padding-left: 1.0rem;
     font-family: Helvetica, sans-serif;
-    
    }
 
    main {
     width: 100%;
     height: 100vh;
-    background: #FFFFFF;
 
     margin: 0 auto;
     padding: 2.4rem 0 7.6rem;
@@ -38,8 +33,6 @@ export const AppWrapper = styled.div`
    }
 
    footer {
-    background: #5AA1FF;
-    color: white;
     font-size: 2.0rem;
     text-align: center;
 
@@ -48,6 +41,5 @@ export const AppWrapper = styled.div`
     left: 0;
     width: 100%;
     padding: 2.6rem;
-
    }
 `;

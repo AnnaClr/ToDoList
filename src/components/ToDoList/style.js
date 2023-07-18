@@ -7,19 +7,43 @@ export const TodoListWrapper = styled.div`
   width: 100%;
   height: 100vh;
 
-  .addButton {
-    width: 12rem;
-    height: 6rem;
-    margin-top: 1.6rem;
+  .listNameCreate {
+    color: #011F26;
+  }
 
-    border: 2px solid #FAA019;
+  .addItem {
+    width: 35%;
+    height: 1.6rem;
+    border: 1px solid #FFCC00;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  .addItemButton {
+    width: 8%;
+    height: 1.6rem;
+    border: 1px solid #FFCC00;
+
+    align-items: center;
+    justify-content: center;
+
     cursor: pointer;
   }
 
-  .textBox {
-    width: 24rem;
-    height: 6rem;
-    margin-top: 1.6rem;
-    border: 2px solid #FAA019;
+  .editButton {
+    border: none;
+    background: none;
+    color: #011F26;
+  }
+
+  .deleteButton {
+    border: none;
+    background: none;
+    color: #011F26;
+  }
+
+  .ListBox {
+    width: 100%;
   }
 `;
