@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { TodoListWrapper } from './style';
+import { TodoListWrapper, ModalWrapper } from './style';
 import TodoItem from '../ToDoItem/index';
-import { BiEdit } from 'react-icons/bi'
-import { MdOutlineDeleteOutline } from 'react-icons/md'
+import { FaEdit } from 'react-icons/fa'
+import { FaTrashCan } from 'react-icons/fa6'
 import { FiPlus } from 'react-icons/fi'
+import Modal from 'react-modal'
 
 const ToDoList = () => {
   const [lists, setLists] = useState([]);
   const [newListName, setNewListName] = useState('');
   const [newItemText, setNewItemText] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  Modal.setAppElement('#root');
+
+  const OpenModal = () => {
+    setModalIsOpen(true);
+  }
+
+  const CloseModal = () => {
+    setModalIsOpen(false);
+  }
 
   useEffect(() => {
     const storedLists = JSON.parse(localStorage.getItem('ToDoLists'));
@@ -121,35 +132,42 @@ const ToDoList = () => {
 
   return (
     <TodoListWrapper>
-      <div>
-        <input className='newList' type="text" value={newListName} onChange={handleNewListNameChange} placeholder="Criar nova Lista" />
+      <div className='newListDiv'>
+        <input className='newList' type="text" value={newListName} onChange={handleNewListNameChange} placeholder="Criar Nova Lista"/>
         <button className='newListButton' onClick={handleAddList}><FiPlus/></button>
       </div>
-
+     
       {lists.map((list) => (
         <div key={list.id} className='listBox'>
           <div className='listNameCreate'>
             <h2>{list.name}</h2>
-            <div>Criada em: {list.date}</div>
-            <div>
-              <input className='addItem' type="text" value={newItemText} onChange={handleNewItemTextChange} placeholder="Adicionar item"/>
-              <button className='addItemButton' onClick={() => handleAddItem(list.id)}><FiPlus/></button>
-            </div>
+            <p>Criada em: {list.date}</p>
+          <button className='openModalButton' onClick={OpenModal}><FaEdit/></button>
           </div>
-         
-
-          {list.items.map((item) => (
-            <TodoItem
-              key={item.id}
-              item={item}
-              onEdit={(newText) => handleEditItem(list.id, item.id, newText)}
-              onDelete={() => handleDeleteItem(list.id, item.id)}
-              onToggleComplete={() => handleToggleComplete(list.id, item.id)}
-            />
-          ))}
-
-          <button className='deleteButton' onClick={() => handleDeleteList(list.id)}><MdOutlineDeleteOutline/></button>
-          <button className='editButton' onClick={() => handleEditList(list.id)}><BiEdit/></button>
+          <Modal className='ModalBox' isOpen={modalIsOpen} onRequestClose={CloseModal}>
+              <ModalWrapper>
+                <h2>{list.name}</h2>
+                  <p>Criada em: {list.date}</p>
+                      <div className='addItens'>
+                        <input className='addItem' type="text" value={newItemText} onChange={handleNewItemTextChange} placeholder="Adicionar item"/>
+                        <button className='addItemButton' onClick={() => handleAddItem(list.id)}><FiPlus/></button>
+                      </div>
+                      <div className='iconButtons'>
+                        <button className='deleteButton' onClick={() => handleDeleteList(list.id)}><FaTrashCan/></button>
+                        <button className='editButton' onClick={() => handleEditList(list.id)}><FaEdit/></button> 
+                      </div>  
+                      <button onClick={CloseModal}>Fechar</button>
+                      {list.items.map((item) => (
+                        <TodoItem
+                          key={item.id}
+                          item={item}
+                          onEdit={(newText) => handleEditItem(list.id, item.id, newText)}
+                          onDelete={() => handleDeleteItem(list.id, item.id)}
+                          onToggleComplete={() => handleToggleComplete(list.id, item.id)}
+                        />
+                  ))}
+              </ModalWrapper>
+          </Modal>
         </div>
       ))}
     </TodoListWrapper>
@@ -157,4 +175,5 @@ const ToDoList = () => {
 };
 
 export default ToDoList;
+
 

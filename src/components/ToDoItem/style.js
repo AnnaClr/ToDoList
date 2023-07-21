@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 export const TodoItemWrapper = styled.div`
-  display: flex;
+  /* display: flex;
   align-items: center;
   margin-bottom: 10px;
+  width: 100%;
+  height: 100vh;
   
   input[type='text'] {
     margin-right: 10px;
@@ -10,7 +12,6 @@ export const TodoItemWrapper = styled.div`
   
   button {
     margin-left: 10px;
-  }
-
+  } */
 `;
 

@@ -8,6 +8,7 @@ export const ResetStyled = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    border-radius: 0%;
 }
 
 body, input, textarea, select {
