@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-
 export const TodoListWrapper = styled.div`
-  @import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&family=Inter:wght@600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&family=Inter:wght@300;600;700&family=Lato:ital@0;1&family=Poppins:wght@500&family=REM:wght@500&family=Roboto:ital@0;1&family=Sen:wght@500&family=Staatliches&display=swap');
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #57A6B6;
+  background: #090B10;
   padding: 20px;
   font-family: 'Anonymous Pro', monospace;
   font-size: 16px;
@@ -42,8 +41,7 @@ export const TodoListWrapper = styled.div`
     justify-content: center;
     margin-bottom: 2.6rem;
     margin-top: 4.5rem;
-    border: 2px solid #011F26;
-    background: linear-gradient(125deg, #025159, #1C6461);
+    background: linear-gradient(125deg, #B7E4E4, #7BAAFF);
   }
 
   .newList {
@@ -51,8 +49,8 @@ export const TodoListWrapper = styled.div`
     max-width: 250px;
     padding: 15px;
     outline-color: #F9E22A;
-    color: #FFFFFF;
-    background: linear-gradient(125deg, #025159, #1C6461);
+    color: #011F26;
+    background: linear-gradient(125deg, #B7E4E4, #7BAAFF);
     border: none;
 
     @media (max-width: 600px) {
@@ -61,10 +59,10 @@ export const TodoListWrapper = styled.div`
   }
 
   .newList::placeholder {
-    color: #FFFFFF;
+    color: #011F26;
     font-weight: bold;
     text-align: center;
-    font-family: 'Inter', sans-serif;
+    font-family: 'REM', sans-serif;
     font-size: 20px;
   }
 
@@ -76,9 +74,9 @@ export const TodoListWrapper = styled.div`
   .newListButton {
     width: 75px;
     padding: 15px;
-    background: #1C6461;
-    color: #FFFFFF;
-    font-size: 15px;
+    background: #7BAAFF;
+    color: #011F26;
+    font-size: 1.5rem;
     border: none;
     cursor: pointer;
   }
@@ -88,6 +86,7 @@ export const TodoListWrapper = styled.div`
     flex-direction: column;
     justify-content: left;
     margin-bottom: 10px;
+    color: #011F26;
   }
 `;
 
@@ -102,7 +101,7 @@ export const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background: linear-gradient(90deg, #CDFFD8, #8FB7FF);
+  background: linear-gradient(125deg, #B7E4E4, #7BAAFF);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -137,6 +136,19 @@ export const ModalWrapper = styled.div`
     border: 2px solid #F9E22A;
   }
 
+  .flex {
+    width: 100%;
+    gap: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+
   .addItemButton {
     width: 35px;
     padding: 5px;
@@ -148,12 +160,33 @@ export const ModalWrapper = styled.div`
     cursor: pointer;
   }
 
-  .deleteButton,
-  .editButton,
-  .closeModalButton {
+  .modalButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .deleteButton {
     padding: 5px;
-    font-size: 20px;
-    margin-left: 5px;
+    font-size: 2.0rem;
+    background: none;
+    border: none;
+    color: #011F26;
+    cursor: pointer;
+  }
+
+  .editButton {
+    padding: 5px;
+    font-size: 2.3rem;
+    background: none;
+    border: none;
+    color: #011F26;
+    cursor: pointer;
+  }
+
+  .closeModalButton {
+    padding: 1px;
+    font-size: 3.0rem;
     background: none;
     border: none;
     color: #011F26;

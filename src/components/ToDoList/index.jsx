@@ -14,12 +14,12 @@ const ToDoList = () => {
   const [selectedList, setSelectedList] = useState(null);
   const [editingListId, setEditingListId] = useState(null);
 
-  const OpenModal = (list) => {
+  const openModal = (list) => {
     setSelectedList(list);
     setModalIsOpen(true);
   };
 
-  const CloseModal = () => {
+  const closeModal = () => {
     setModalIsOpen(false);
   };
 
@@ -33,16 +33,11 @@ const ToDoList = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("ToDoLists", JSON.stringify(lists));
-  }, [lists]);
-
-  const handleNewListNameChange = (e) => {
-    setNewListName(e.target.value);
-  };
-
-  const handleNewItemTextChange = (e) => {
-    setNewItemText(e.target.value);
-  };
+    if (modalIsOpen && selectedList) {
+      const updatedSelectedList = lists.find((list) => list.id === selectedList.id);
+      setSelectedList(updatedSelectedList);
+    }
+  }, [modalIsOpen, lists]);
 
   const handleAddList = () => {
     if (newListName.trim() !== "") {
@@ -107,6 +102,26 @@ const ToDoList = () => {
     setLists(updatedLists);
   };
 
+  const handleNewListNameChange = (e) => {
+    setNewListName(e.target.value);
+  };
+
+  const handleNewItemTextChange = (e) => {
+    setNewItemText(e.target.value);
+  };
+
+  const handleEditListName = (id) => {
+    setEditingListId(id);
+  };
+
+  const handleSaveListName = (id, newName) => {
+    const updatedLists = lists.map((list) =>
+      list.id === id ? { ...list, name: newName } : list
+    );
+    setLists(updatedLists);
+    setEditingListId(null);
+  };
+
   const handleToggleComplete = (listId, itemId) => {
     const updatedLists = lists.map((list) => {
       if (list.id === listId) {
@@ -121,18 +136,6 @@ const ToDoList = () => {
       return list;
     });
     setLists(updatedLists);
-  };
-
-  const handleEditListName = (id) => {
-    setEditingListId(id);
-  };
-
-  const handleSaveListName = (id, newName) => {
-    const updatedLists = lists.map((list) =>
-      list.id === id ? { ...list, name: newName } : list
-    );
-    setLists(updatedLists);
-    setEditingListId(null);
   };
 
   return (
@@ -159,28 +162,51 @@ const ToDoList = () => {
                 onChange={(e) => handleSaveListName(list.id, e.target.value)}
               />
             ) : (
-              <>
+             < >
                 <h2>{list.name}</h2>
                 <p>Criada em: {list.date}</p>
-              </>
+             </>
             )}
-            <button className="openModalButton" onClick={() => OpenModal(list)}>
+            <button className="openModalButton" onClick={() => openModal(list)}>
               <FaEdit />
             </button>
           </div>
         </div>
       ))}
       {selectedList && (
-        <Modal
-          className="ModalBox"
+        <Modal className='modalBox'
           isOpen={modalIsOpen}
-          onRequestClose={CloseModal}
+          onRequestClose={closeModal}
           key={selectedList.id}
         >
           <ModalWrapper>
             <div className="listNameModal" key={selectedList.id}>
-              <h2>{selectedList.name}</h2>
-              <p>Criada em: {selectedList.date}</p>
+              <div className="flex">
+                 <div className="column">
+                    <h2>{selectedList.name}</h2>
+                    <p>Criada em: {selectedList.date}</p>
+                 </div>
+                  <div className="modalButtons">
+                  <button
+                    className="deleteButton"
+                    onClick={() => handleDeleteList(selectedList.id)}
+                  >
+                    <FaTrash />
+                  </button>
+                  <button
+                    className="editButton"
+                    onClick={() => handleEditListName(selectedList.id)}
+                  >
+                    <FaEdit />
+                  </button>
+                  <button
+                    className="closeModalButton"
+                    onClick={closeModal}
+                  >
+                    <FaXmark />
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="addItens">
               <input
@@ -195,26 +221,6 @@ const ToDoList = () => {
                 onClick={() => handleAddItem(selectedList.id)}
               >
                 <FiPlus />
-              </button>
-            </div>
-            <div>
-              <button
-                className="closeModalButton"
-                onClick={CloseModal}
-              >
-                <FaXmark />
-              </button>
-              <button
-                className="deleteButton"
-                onClick={() => handleDeleteList(selectedList.id)}
-              >
-                <FaTrash />
-              </button>
-              <button
-                className="editButton"
-                onClick={() => handleEditListName(selectedList.id)}
-              >
-                <FaEdit />
               </button>
             </div>
             {selectedList.items.map((item) => (
