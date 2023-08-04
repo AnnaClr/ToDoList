@@ -4,7 +4,9 @@ import TodoItem from "../ToDoItem";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FaXmark } from 'react-icons/fa6'
 import { FiPlus } from "react-icons/fi";
+import { BsCheck } from 'react-icons/bs'
 import Modal from "react-modal";
+// import Calendar from "react-calendar";
 
 const ToDoList = () => {
   const [lists, setLists] = useState([]);
@@ -13,6 +15,7 @@ const ToDoList = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedList, setSelectedList] = useState(null);
   const [editingListId, setEditingListId] = useState(null);
+  const [editedListName, setEditedListName] = useState(selectedList?.name || "");
 
   const openModal = (list) => {
     setSelectedList(list);
@@ -33,11 +36,15 @@ const ToDoList = () => {
   }, []);
 
   useEffect(() => {
+    localStorage.setItem("ToDoLists", JSON.stringify(lists));
+  }, [lists]);
+
+  useEffect(() => {
     if (modalIsOpen && selectedList) {
       const updatedSelectedList = lists.find((list) => list.id === selectedList.id);
       setSelectedList(updatedSelectedList);
     }
-  }, [modalIsOpen, lists]);
+  }, [modalIsOpen, lists, selectedList]);
 
   const handleAddList = () => {
     if (newListName.trim() !== "") {
@@ -102,6 +109,15 @@ const ToDoList = () => {
     setLists(updatedLists);
   };
 
+  const handleSaveListName = (id, newName) => {
+    const updatedLists = lists.map((list) =>
+      list.id === id ? { ...list, name: newName } : list
+    );
+    setLists(updatedLists);
+    setEditingListId(null);
+  };
+  
+
   const handleNewListNameChange = (e) => {
     setNewListName(e.target.value);
   };
@@ -112,14 +128,10 @@ const ToDoList = () => {
 
   const handleEditListName = (id) => {
     setEditingListId(id);
-  };
-
-  const handleSaveListName = (id, newName) => {
-    const updatedLists = lists.map((list) =>
-      list.id === id ? { ...list, name: newName } : list
-    );
-    setLists(updatedLists);
-    setEditingListId(null);
+    const listToUpdate = lists.find((list) => list.id === id);
+    if (listToUpdate) {
+      setEditedListName(listToUpdate.name);
+    }
   };
 
   const handleToggleComplete = (listId, itemId) => {
@@ -146,7 +158,7 @@ const ToDoList = () => {
           type="text"
           value={newListName}
           onChange={handleNewListNameChange}
-          placeholder="Criar Nova Lista"
+          placeholder="Criar Novo Bloco"
         />
         <button className="newListButton" onClick={handleAddList}>
           <FiPlus />
@@ -155,24 +167,19 @@ const ToDoList = () => {
       {lists.map((list) => (
         <div key={list.id} className="listBox">
           <div className="listNameCreate">
-            {editingListId === list.id ? (
-              <input
-                type="text"
-                value={list.name}
-                onChange={(e) => handleSaveListName(list.id, e.target.value)}
-              />
-            ) : (
-             < >
-                <h2>{list.name}</h2>
-                <p>Criada em: {list.date}</p>
-             </>
-            )}
+              <>
+                <div className="listNameDate">
+                  <h2>{list.name}</h2>
+                  <p>Criada em: {list.date}</p>
+                </div>
+              </>
             <button className="openModalButton" onClick={() => openModal(list)}>
               <FaEdit />
             </button>
           </div>
         </div>
       ))}
+
       {selectedList && (
         <Modal className='modalBox'
           isOpen={modalIsOpen}
@@ -180,13 +187,31 @@ const ToDoList = () => {
           key={selectedList.id}
         >
           <ModalWrapper>
-            <div className="listNameModal" key={selectedList.id}>
-              <div className="flex">
-                 <div className="column">
-                    <h2>{selectedList.name}</h2>
-                    <p>Criada em: {selectedList.date}</p>
-                 </div>
-                  <div className="modalButtons">
+              <div className="listNameModal" key={selectedList.id}>
+                  {editingListId === selectedList.id ? (
+                     <>
+                     <div className="editListDiv">
+                        <input
+                          type="text"
+                          value={editedListName}
+                          onChange={(e) => setEditedListName(e.target.value)}
+                        />
+                        <button className="saveNameButton" onClick={() => 
+                          handleSaveListName(selectedList.id, editedListName)}>
+                          <BsCheck className="saveEditButton"/>
+                        </button>
+                     </div>
+                   </>
+                    
+                  ) : (
+                    <div className="column">
+                      <h2 className="listTitleModal">{selectedList.name}</h2>
+                      <p className="listParagraphModal">Criada em: {selectedList.date}</p>
+                    </div>
+
+                  )}
+              </div>
+              <div className="modalButtons">
                   <button
                     className="deleteButton"
                     onClick={() => handleDeleteList(selectedList.id)}
@@ -205,9 +230,7 @@ const ToDoList = () => {
                   >
                     <FaXmark />
                   </button>
-                </div>
               </div>
-            </div>
             <div className="addItens">
               <input
                 className="addItem"
@@ -223,27 +246,28 @@ const ToDoList = () => {
                 <FiPlus />
               </button>
             </div>
+            <div className="allListsDiv">
             {selectedList.items.map((item) => (
-              <TodoItem
-                key={item.id}
-                item={item}
-                onEdit={(newText) =>
-                  handleEditItem(selectedList.id, item.id, newText)
-                }
-                onDelete={() => handleDeleteItem(selectedList.id, item.id)}
-                onToggleComplete={() =>
-                  handleToggleComplete(selectedList.id, item.id)
-                }
-              />
-            ))}
+               <TodoItem
+               key={item.id}
+               item={item}
+               onEdit={(newText) =>
+                 handleEditItem(selectedList.id, item.id, newText)
+               }
+               onDelete={() => handleDeleteItem(selectedList.id, item.id)}
+               onToggleComplete={() =>
+                 handleToggleComplete(selectedList.id, item.id)
+               }
+             />
+           ))}
+            </div>
           </ModalWrapper>
         </Modal>
       )}
+
+    {/* <Calendar/> */}
     </TodoListWrapper>
   );
 };
 
 export default ToDoList;
-
-
-

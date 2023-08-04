@@ -1,14 +1,15 @@
-import { Container } from "./style.js"
+import { HeaderContainer } from "./style.js"
 import { HiMenuAlt1 } from "react-icons/hi"
 import { IoMdClose } from "react-icons/io"
 import { useState } from "react"
-import { Menu } from '../Menu'
+import Menu from '../Menu/index.jsx'
+
 export function Header() {
   const [menuActive, setMenuActive] = useState(false);
   const toggleMenuIcon = () => setMenuActive(!menuActive);
     return (
      <>
-        <Container>
+        <HeaderContainer>
             <button onClick={toggleMenuIcon}>
              {
                 menuActive ?  
@@ -20,7 +21,7 @@ export function Header() {
                     <h1 className='title'>TO DO LIST</h1>
                     <p className='paragraph'>some boring unless text example</p>
                 </div>
-        </Container>
+        </HeaderContainer>
 
         <div onClick={toggleMenuIcon}>
             {menuActive && <Menu/>}
@@ -28,3 +29,4 @@ export function Header() {
      </>
     )
 }
+

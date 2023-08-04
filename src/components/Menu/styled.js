@@ -1,5 +1,5 @@
 import styled from "styled-components";
-export const Container = styled.div `
+export const MenuContainer = styled.div `
   @import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&family=Inter:wght@600;700&family=Lato:ital@0;1&family=Poppins:wght@500&family=Roboto:ital@0;1&display=swap');
   width: 50%;
   height: 100%;

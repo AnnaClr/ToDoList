@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { FaCheck, FaTrash } from 'react-icons/fa';
 import { TodoItemWrapper } from "./style";
-import { FaCheck, FaEdit, FaTrash } from "react-icons/fa";
 
 const TodoItem = ({ item, onEdit, onDelete, onToggleComplete }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -10,62 +10,37 @@ const TodoItem = ({ item, onEdit, onDelete, onToggleComplete }) => {
     setIsEditing(true);
   };
 
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-    setEditedText(item.text);
-  };
-
   const handleSaveEdit = () => {
-    if (editedText.trim() !== "") {
+    if (editedText.trim() !== '') {
       onEdit(editedText);
-      setIsEditing(false);
     }
+    setIsEditing(false);
   };
 
   return (
-    <TodoItemWrapper>
+   <TodoItemWrapper>
+     <div>
       {isEditing ? (
         <>
           <input
             type="text"
-            className="inputText"
             value={editedText}
-            onChange={(e) => setEditedText(e.target.value)}
-          />
-          <button className="saveButton" onClick={handleSaveEdit}>
-            <FaCheck />
-          </button>
-          <button className="cancelButton" onClick={handleCancelEdit}>
-            <FaTrash />
-          </button>
+            onChange={(e) => setEditedText(e.target.value)}/>
+           <button className="saveButton" onClick={handleSaveEdit}><FaCheck/></button>
+           <button className="deleteItemButton" onClick={onDelete}><FaTrash /></button>
         </>
       ) : (
         <>
-          <div className="itensDiv">
-            <input
-              type="checkbox"
-              checked={item.completed}
-              onChange={onToggleComplete}
-            />
-            <span
-              className="itemText"
-              style={{
-                textDecoration: item.completed ? "line-through" : "none",
-              }}
-            >
-              {item.text}
-            </span>
+          <div className='itensDiv'>
+            <input type="checkbox" checked={item.completed} onChange={onToggleComplete}/>
+            <p style={{ textDecoration: item.completed ? 'line-through' : 'none',}} onClick={handleEdit}>{item.text}</p>
           </div>
-          {/* <button onClick={onDelete} className="deleteButtonItem">
-            <FaTrash />
-          </button>
-          <button onClick={handleEdit} className="editButtonItem">
-            <FaEdit />
-          </button> */}
         </>
       )}
-    </TodoItemWrapper>
-  );
+    </div>
+   </TodoItemWrapper>
+  )
 };
 
 export default TodoItem;
+

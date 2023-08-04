@@ -7,6 +7,7 @@ export const AppWrapper = styled.div`
 
   header {
     width: 100%;
+    height: auto;
     height: 10.0rem;
     background: none;
   }
